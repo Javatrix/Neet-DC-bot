@@ -1,10 +1,10 @@
 import typing
-
+import sys
 import discord
 from discord import app_commands, Interaction, Member, TextInput, permissions
 from discord import Permissions
 from discord.ext import commands
-
+from utils.logging_on_server.loggingg import setup
 class ban(commands.Cog):
 
     def __init__(self, client: commands.Bot):
@@ -24,8 +24,11 @@ class ban(commands.Cog):
         else:
             if reason == None:
                 reason = "no reason"
+            channel = await user.create_dm()
+            await channel.send(f"You had been baned on **{interaction.guild.name}** reason: {reason}")
             await user.ban(reason=reason)
             await interaction.response.send_message(f'Banned user {user.mention} for {reason}')
+
 
 async def setup(client: commands.Bot) -> None:
     await client.add_cog(ban(client))
