@@ -11,6 +11,7 @@ class ban(commands.Cog):
         self.client = client
 
     @app_commands.command(name='ban', description="Ban a user")
+    @app_commands.default_permissions(ban_members=True)
     #defoult perm
     async def ban(self, interaction: discord.Interaction,
                   user: Member, reason: str = None):
